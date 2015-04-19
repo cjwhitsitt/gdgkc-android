@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GDGKC</string>
+    <string name="hello_world">Welcome to GDG KC app</string>
+    <string name="action_settings">Settings</string>
+    <string name="next_meeting_title">Next Meeting:</string>
+    <string name="next_meeting_date_title">Date:</string>
+    <string name="next_meeting_time_title">Time:</string>
+    <string name="next_meeting_rsvp">RSVP</string>
+    <string name="next_meeting_check_in">Check In</string>
+
+</resources>
