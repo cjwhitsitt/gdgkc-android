@@ -45,12 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView" />
+            android:id="@+id/next_meeting_time_title" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
+            android:id="@+id/next_meeting_time"
             android:layout_alignParentEnd="true"
             android:text="@string/next_meeting_time_title" />
     </RelativeLayout>
@@ -65,14 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next_meeting_rsvp"
-            android:id="@+id/button"
+            android:id="@+id/rsvp_button"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next_meeting_check_in"
-            android:id="@+id/button2"
+            android:id="@+id/check_in_button"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/activity_horizontal_margin" />
     </LinearLayout>
