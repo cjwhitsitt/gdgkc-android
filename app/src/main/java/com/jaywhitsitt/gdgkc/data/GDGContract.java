@@ -83,10 +83,12 @@ public class GDGContract {
         // Column with the foreign key into the chapter table, based on actual _id, not GID
         public static final String COLUMN_CHAPTER_KEY = "chapter_key";
 
-        // Date, stored as date/time string formatted with timezone
+        // Date, stored as milliseconds from epoch
         public static final String COLUMN_START_DATE = "start";
         public static final String COLUMN_END_DATE = "end";
-        public static final String COLUMN_ALL_DAY = "all_day"; // boolean
+
+        // 0 = false, 1 = true
+        public static final String COLUMN_ALL_DAY = "all_day";
 
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_ABOUT = "about";

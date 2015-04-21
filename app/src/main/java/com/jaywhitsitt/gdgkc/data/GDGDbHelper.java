@@ -34,15 +34,21 @@ public class GDGDbHelper extends SQLiteOpenHelper {
 
                 // the ID of the location entry associated with this weather data
                 GDGContract.EventEntry.COLUMN_CHAPTER_KEY + " INTEGER NOT NULL, " +
-                GDGContract.EventEntry.COLUMN_START_DATE + " TEXT NOT NULL, " +
-                GDGContract.EventEntry.COLUMN_END_DATE + " TEXT NOT NULL," +
+
+                // integers in milliseconds from epoch
+                GDGContract.EventEntry.COLUMN_START_DATE + " INTEGER NOT NULL, " +
+                GDGContract.EventEntry.COLUMN_END_DATE + " INTEGER NOT NULL," +
+
+                // 0 for false and 1 for true
                 GDGContract.EventEntry.COLUMN_ALL_DAY + " INTEGER NOT NULL, " +
 
                 GDGContract.EventEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
-
                 GDGContract.EventEntry.COLUMN_ABOUT + " TEXT NOT NULL, " +
                 GDGContract.EventEntry.COLUMN_EVENT_URL + " TEXT NOT NULL, " +
+
+                // relative url to developer.google.com/
                 GDGContract.EventEntry.COLUMN_ICON_URL + " TEXT NOT NULL, " +
+
                 GDGContract.EventEntry.COLUMN_LOCATION + " TEXT NOT NULL, " +
                 GDGContract.EventEntry.COLUMN_PARTICIPANTS + " INTEGER NOT NULL, " +
 
