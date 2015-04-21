@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.jaywhitsitt.gdgkc.NextMeetingFragment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -203,5 +205,10 @@ public class FetchGDGTask extends AsyncTask<String, Void, Void> {
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+
     }
 }

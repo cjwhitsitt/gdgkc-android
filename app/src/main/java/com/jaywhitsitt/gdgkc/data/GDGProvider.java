@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 /**
  * ContentProvider subclass that retrieves data related to GDG chapter
@@ -15,14 +16,17 @@ import android.net.Uri;
  */
 public class GDGProvider extends ContentProvider {
 
+    private final String LOG_TAG = GDGProvider.class.getSimpleName();
+
     // The URI Matcher used by this content provider.
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     private GDGDbHelper mOpenHelper;
 
-    static final int CHAPTER = 100;
-    static final int CHAPTER_EVENTS = 101;
-    static final int EVENT = 102;
+    static final int CHAPTERS = 100;
+    static final int CHAPTER = 101;
+    static final int CHAPTER_EVENTS = 102;
+    static final int EVENT = 103;
 
     private static final SQLiteQueryBuilder sChapterQueryBuilder;
     static {
@@ -86,10 +90,12 @@ public class GDGProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
 
         switch (match) {
+            case CHAPTERS:
+                return GDGContract.ChapterEntry.CONTENT_TYPE;
             case CHAPTER:
                 return GDGContract.ChapterEntry.CONTENT_ITEM_TYPE;
             case CHAPTER_EVENTS:
-                return GDGContract.ChapterEntry.CONTENT_TYPE;
+                return GDGContract.EventEntry.CONTENT_TYPE;
             case EVENT:
                 return GDGContract.EventEntry.CONTENT_ITEM_TYPE;
             default:
@@ -105,6 +111,7 @@ public class GDGProvider extends ContentProvider {
 
         // 2) Use the addURI function to match each of the types.  Use the constants from
         // WeatherContract to help define the types to the UriMatcher.
+        uriMatcher.addURI(authority, GDGContract.PATH_CHAPTERS, CHAPTERS);
         uriMatcher.addURI(authority, GDGContract.PATH_CHAPTERS + "/*", CHAPTER);
         uriMatcher.addURI(authority, GDGContract.PATH_CHAPTERS + "/*/" + GDGContract.PATH_EVENTS, CHAPTER_EVENTS);
         uriMatcher.addURI(authority, GDGContract.PATH_EVENTS + "/*", EVENT);
@@ -185,7 +192,7 @@ public class GDGProvider extends ContentProvider {
             }
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException("Unsupported uri for query: " + uri);
         }
 
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -241,11 +248,12 @@ public class GDGProvider extends ContentProvider {
         Uri returnUri;
 
         switch (match) {
-            case CHAPTER: {
+            case CHAPTERS: {
                 long _id = db.insert(GDGContract.ChapterEntry.TABLE_NAME, null, values);
                 if ( _id > 0 ) {
                     String chapterGId = getChapterGIdFromRowId(db, _id);
                     returnUri = GDGContract.ChapterEntry.buildChapterUri(chapterGId);
+                    Log.d(LOG_TAG, "Successfully inserted chapter " + GDGContract.ChapterEntry.getChapterGoogleIdFromUri(returnUri));
                 }
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -262,7 +270,7 @@ public class GDGProvider extends ContentProvider {
                 break;
             }
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException("Unsupported uri for insert: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return returnUri;
@@ -293,7 +301,7 @@ public class GDGProvider extends ContentProvider {
                 break;
             }
             default: {
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException("Unsupported uri for delete: " + uri);
             }
         }
 
